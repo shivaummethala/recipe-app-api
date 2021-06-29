@@ -1,0 +1,14 @@
+version: "3"
+
+services:
+  # name of our service
+  app:
+    build:
+      context: .
+    ports:
+      - "8000:8000"
+    volumes:
+      # to automatically reflect the local changes to docker image rather than restarting
+      - ./app:/app
+    command: >  # > - next line
+      sh -c "python manage.py runserver 0.0.0.0:8000"
