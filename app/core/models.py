@@ -7,12 +7,23 @@ class UserManager(BaseUserManager):
     # password = None for inactive user, extra fields for additional fields
     def create_user(self, email, password=None, **extra_fields):
         """Creates and saves a new user"""
-        user = self.model(email=email, **extra_fields)
+        if not email:
+            raise ValueError('Users must have an email address')
+        user = self.model(email=self.normalize_email(email), **extra_fields)
         # password has to be encrypted and we have a helper function for it
         user.set_password(password)
         user.save(using=self._db)  # support for multiple databases
 
         return user  # returns the user model created
+
+    def create_superuser(self, email, password):
+        """Creates and saves a new superuser"""
+        user = self.create_user(email, password)
+        user.is_staff = True
+        user.is_superuser = True  # from PermissionsMixin class
+        user.save(using=self._db)
+
+        return user
 
 
 class User(AbstractBaseUser, PermissionsMixin):
