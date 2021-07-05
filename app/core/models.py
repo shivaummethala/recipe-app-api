@@ -9,6 +9,7 @@ class UserManager(BaseUserManager):
         """Creates and saves a new user"""
         if not email:
             raise ValueError('Users must have an email address')
+        # create a new user model
         user = self.model(email=self.normalize_email(email), **extra_fields)
         # password has to be encrypted and we have a helper function for it
         user.set_password(password)
@@ -28,13 +29,14 @@ class UserManager(BaseUserManager):
 
 class User(AbstractBaseUser, PermissionsMixin):
     """Custom User model that supports using email instead of username"""
+    # models is imported from django.db
     email = models.EmailField(max_length=255, unique=True)  # unique user with email
     name = models.CharField(max_length=255)
     is_active = models.BooleanField(default=True)
     is_staff = models.BooleanField(default=False)
 
     objects = UserManager()
-
+    # by default USERNAME_FIELD is username, we replacing 'username' with 'email'
     USERNAME_FIELD = 'email'
 
 
