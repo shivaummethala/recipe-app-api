@@ -12,3 +12,17 @@ services:
       - ./app:/app
     command: >  # > - next line
       sh -c "python manage.py runserver 0.0.0.0:8000"
+    environment:  # with this command db service will be available via the network
+      - DB_HOST=db
+      - DB_NAME=app
+      - DB_USER=postgres
+      - DB_PASS=supersecretpassword
+    depends_on:  # initially db service is initialized and used from here. add other required services like redis etc..
+      - db
+
+  db:
+    image: postgres:10-alpine
+    environment:
+      - POSTGRES_DB=app
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=supersecretpassword

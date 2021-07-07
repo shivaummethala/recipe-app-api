@@ -24,7 +24,7 @@ class AdminSiteTests(TestCase):
         """Test that above users are listed on user page"""
         # generate the url for list user page and reverse is to update url automatically rather
         # changing every time manually
-        url = reverse('admin:core_user_changelist')
+        url = reverse('admin:core_user_changelist')  # admin/core/user
         res = self.client.get(url)
         # check if username and email present in res
         self.assertContains(res, self.user.name)
