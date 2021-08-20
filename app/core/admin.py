@@ -6,8 +6,8 @@ from core import models
 
 
 class UserAdmin(BaseUserAdmin):
-    ordering = ['id']
-    list_display = ['email', 'name']
+    ordering = ['id']  # order the users using id
+    list_display = ['email', 'name']  # list the users using email and name 
     # define 4 sections in field sets using ()
     fieldsets = (
         (None, {'fields': ('email', 'password')}),
