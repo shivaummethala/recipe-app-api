@@ -9,8 +9,8 @@ class CommandTests(TestCase):
 
     def test_wait_for_db_ready(self):
         """Test waiting for db when db is available"""
-        with patch('django.db.utils.ConnectionHandler.__getitem__') as gi:
-            gi.return_value = True
+        with patch('django.db.utils.ConnectionHandler.__getitem__') as gi:  # retrieve the default db via connectionhandler  
+            gi.return_value = True  # __getitem__ will retrieve the db from django.db.utils.connectionhandler
             call_command('wait_for_db')  # wait for db is name of management command
             self.assertEqual(gi.call_count, 1)
 
