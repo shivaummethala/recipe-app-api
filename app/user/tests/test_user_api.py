@@ -149,14 +149,3 @@ class PrivateUserApiTests(TestCase):
 
 """Note: Users created as part of one test are not going to be accessed in another test case
 because every single test it runs, database is refreshed"""
-
-
-
-
-
-
-
-
-
-
-
